@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+
+        ul{margin:0; padding:0; list-style:none; overflow:hidden;}
+        #demo2{ width:500px; border:1px #000 solid; text-align: center ; margin: 0 auto; }
+        ul{ border:1px solid;}
+        li{width:100px; float:left; background-color:#fff; height:50px; line-height:50px; text-align:center; }
+        li.active{background-color:#2c3e50; color:white}
+        #demo2 .content{ height: 150px;margin-top: 50px}
+    </style>
+</head>
+<body>
+<div id="demo2">
+    <a-tab :cities="cities1" :contents="contents1" :n="ne"></a-tab>
+    <a-tab :cities="cities2" :contents="contents2" :n="ne"></a-tab>
+</div>
+<script>
+    Vue.component('a-tab',{
+        props : ['cities','contents','n'],
+        data(){
+            return {
+                value : this.n
+            }
+        },
+        template:`
+	<div id="demo2">
+		<ul>
+			<li v-for="city,index of cities"
+			:class="{active:index==value}"
+			@mouseover="xuanze(index)">{{city}}</li>
+		</ul>
+		<div class="content">{{contents[value]}}</div>
+	</div>
+	`,
+        methods : {
+            xuanze (index){
+                this.value = index;
+            }
+        }
+    })
+    new Vue({
+        el : "#demo2",
+        data : {
+            cities1 : ["选项卡1","选项卡2","选项卡3"],
+            contents1 : ["这是选项卡1的内容","这是选项卡2的内容","这是选项卡3的内容"],
+            ne : 0,
+            cities2 : ["京东超市","数码电器","服饰美妆","京东生鲜"],
+            contents2 : ["时令生鲜","小米Mix","衬衫","大闸蟹"]
+        }
+    })
+</script>
+</body>
+</html>
